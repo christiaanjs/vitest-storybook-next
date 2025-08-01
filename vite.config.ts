@@ -15,47 +15,53 @@ export default defineConfig({
   // },
   plugins: [nextjs()],
   define: {
-    global: 'globalThis',
+    global: "globalThis",
   },
   test: {
     /* for example, use global to avoid globals imports (describe, test, expect): */
     globals: true,
-    browser: {
-      enabled: true,
-      headless: true,
-      provider: 'playwright',
-      instances: [{ browser: 'chromium' }],
-    },
-    setupFiles: ['.storybook/vitest-setup.ts'],
-    // projects: [
-    //   {
-    //     test: {
-    //       name: 'browser',
-    //       browser: {
-    //         enabled: true,
-    //         headless: true,
-    //         provider: 'playwright',
-    //         instances: [{ browser: 'chromium' }],
-    //       },
-    //     },
-    //   },
-    // ],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "storybook",
+          include: ["src/components/stories/__tests__/*.test.tsx"],
+          setupFiles: [".storybook/vitest-storybook-setup.ts"],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: "playwright",
+            instances: [{ browser: "chromium" }],
+          },
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "unit",
+          include: ["test/**/*.test.{ts,tsx}"],
+          browser: {
+            enabled: false,
+          },
+        },
+      },
+    ],
   },
   optimizeDeps: {
     include: [
-      '@storybook/test',
-      '@testing-library/react',
-      '@testing-library/jest-dom',
-      'next/head',
-      'next/router',
-      'next/client',
-      'next/client/components',
+      "@storybook/test",
+      "@testing-library/react",
+      "@testing-library/jest-dom",
+      "next/head",
+      "next/router",
+      "next/client",
+      "next/client/components",
     ],
     exclude: [
-      'sb-original/image-context',
-      '@storybook/nextjs',
-      '@storybook/nextjs-vite',
-      '@storybook/addon-*',
+      "sb-original/image-context",
+      "@storybook/nextjs",
+      "@storybook/nextjs-vite",
+      "@storybook/addon-*",
     ],
   },
-})
+});
