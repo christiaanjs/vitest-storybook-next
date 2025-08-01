@@ -25,7 +25,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: "storybook",
-          include: ["src/components/stories/__tests__/*.test.tsx"],
+          include: ["src/components/stories/__tests__/*.test.{ts,tsx}"],
           setupFiles: [".storybook/vitest-storybook-setup.ts"],
           browser: {
             enabled: true,
