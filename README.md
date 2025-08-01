@@ -1,1 +1,1 @@
-# vitest-storybook-next
+# Vitest Storybook Next.js demo
